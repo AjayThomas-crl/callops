@@ -1,0 +1,10 @@
+pandas
+psycopg[binary]
+sqlalchemy
+huggingface_hub
+requests
+streamlit
+plotly
+scipy
+python-dotenv
+jupyter
