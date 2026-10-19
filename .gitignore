@@ -219,3 +219,8 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 data/
+
+# Private notes and local tool config
+CLAUDE.md
+AGENTS.md
+.claude/
