@@ -108,7 +108,8 @@ EXPECTED_COLUMNS = {
 }
 
 
-def run(verbose: bool) -> int:
+def collect():
+    """Run every check; return [(name, severity, ok, observed, expected)]. Used by run() and the dashboard."""
     results = []
     with connect() as conn, conn.cursor() as cur:
         cur.execute("""SELECT table_name, array_agg(column_name::text) FROM information_schema.columns
@@ -128,7 +129,11 @@ def run(verbose: bool) -> int:
                 conn.rollback()
                 value, ok = f"error: {type(e).__name__}", False
             results.append((name, severity, ok, value, expectation))
+    return results
 
+
+def run(verbose: bool) -> int:
+    results = collect()
     width = max(len(r[0]) for r in results)
     fails = warns = 0
     for name, severity, ok, value, expectation in results:
